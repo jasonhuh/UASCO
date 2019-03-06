@@ -1,20 +1,3 @@
-# Note: This code is work in progress
-
-
-
-
-"""
-ID: jasonhu5
-LANG: PYTHON3
-TASK: milk2
-"""
-
-"""
-ID: jasonhu5
-LANG: PYTHON3
-TASK: milk2
-"""
-
 """
 ID: jasonhu5
 LANG: PYTHON3
@@ -22,31 +5,33 @@ TASK: milk2
 """
 
 def solve(ar):
-    n = len(ar)
-    ar = sorted(ar, key=lambda x: x[1]) # Sort by finishing time
-    max_yes, max_no = ar[0][1] - ar[0][0], 0
-    j = 0 # Index of starting activity
-    start = ar[0][0]
-    for i, cur in enumerate(ar[:-1]):
-        nxt = ar[i+1]
-        yes = nxt[1] - nxt[0]
-        if cur[1] >= nxt[0]: # Overlap
-            start = min(start, nxt[0])
-            yes = max(yes, nxt[0] - start)
-        else:
-            yes = max(yes, cur[1] - start) # Duration for continuous activities
-            no = nxt[0] - cur[1] # Duration for no activity
-            max_no = max(max_no, no)
-            print(max_no, no)
-        max_yes = max(max_yes, yes)            
-    return (max_yes, max_no)
-
+    # Combine overlapping events
+    def merge_events(ar):
+        ar = sorted(ar, key=lambda x: x[0]) # Sort by start time    
+        stack = [ar[0]]
+        for _, event in enumerate(ar[1:]):
+            top = stack[-1]
+            if top[1] >= event[0]: # Events overlap
+                if top[1] < event[1]:
+                    stack.pop()
+                    stack.append((top[0], event[1]))
+            else:
+                stack.append(event)
+        return stack
+    finals = merge_events(ar)
+    max_range, max_space = finals[0][1] - finals[0][0], 0
+    for i, event in enumerate(finals[1:], 1):
+        max_range = max(max_range, event[1] - event[0])
+        max_space = max(max_space, event[0] - finals[i-1][1])
+    return (max_range, max_space)
+        
 def test_simple():
     assert solve([(100, 200)]) == (100, 0)
     assert solve([(300, 1000), (700, 1200), (1500, 2100)]) == (900, 300)
     assert solve([(2, 3), (4, 5), (6, 7), (8, 9), (10, 11), (12, 13), \
                     (14, 15), (16, 17), (18, 19), (1, 20)]) == (19, 0)
-    
+    assert solve([(100, 200), (200, 400), (400, 800), (800, 1600), (50, 100), \
+                    (1700, 3200)]) == (1550, 100)
 
 if __name__ == '__main__':
     test_simple()
