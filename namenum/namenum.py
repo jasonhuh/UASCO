@@ -59,18 +59,20 @@ def solve(serial_no):
             generate_name(serial_no, 0, '')
         else:
             if idx == len(serial_no):
+                # Find if there is an exact match of the name in the dict.txt file.
                 if trie.find(sofar, False):
                     output.append('{}\n'.format(sofar))
                 return
             cur_digit = int(serial_no[idx])
             if cur_digit in keypad_mapping:
                 for c in keypad_mapping[cur_digit]:
-                    # TODO: Filter using trie
+                    # Prune search
                     if trie.find(sofar+c, True):
                         generate_name(serial_no, idx+1, sofar+c)
             else: 
                 # keypad mapping does not contain the current digit of serial number.
                 # Just move to the next digit with the current result so far.
+                # Prune search
                 if trie.find(sofar, True):
                     generate_name(serial_no, idx+1, sofar)
 
