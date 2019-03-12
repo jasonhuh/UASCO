@@ -7,7 +7,7 @@ then the number can be included in the list of result. Here is a gist of the tec
 
 ```python
 found = False
-for base in range(2, 11):
+for base in range(2, 11): # From base 2 to base 10.
     new_base = convert(num, base)
     if is_palindrome(new_base):
         if not found:
