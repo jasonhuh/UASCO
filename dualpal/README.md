@@ -1,4 +1,4 @@
-This question is a slight variation of the previous problem, palsquare. The _gotcha_ of this problem is this problem statement:
+This question is a slight variation of the previous problem, [palsquare](https://github.com/jasonhuh/UASCO-Solutions/tree/master/palsquare). The _gotcha_ of this problem is this problem statement:
 
 '... palindromic when written in two or more number bases'
 
