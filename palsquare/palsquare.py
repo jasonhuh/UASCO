@@ -12,7 +12,7 @@ def convert(num, B):
         num //= B
     return ''.join(reversed(res))
 
-def is_palindrom(s):
+def is_palindrome(s):
     return all(s[i] == s[-i-1] for i in range(len(s)//2))
 
 def solve(B):
@@ -20,7 +20,7 @@ def solve(B):
     res = []
     for i in range(1, N+1):
         square_base = convert(i*i, B)
-        if is_palindrom(square_base):
+        if is_palindrome(square_base):
             num_base = convert(i, B)
             res.append('{} {}\n'.format(num_base, square_base))
     return res
@@ -30,9 +30,9 @@ def test_convert():
     assert convert(15, 16) == 'F'
 
 def test_palindrom():
-    assert is_palindrom('1000') == False
-    assert is_palindrom('1001') == True
-    assert is_palindrom('10101') == True
+    assert is_palindrome('1000') == False
+    assert is_palindrome('1001') == True
+    assert is_palindrome('10101') == True
 
 if __name__ == '__main__':
     fin = open('palsquare.in','r')
