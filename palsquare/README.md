@@ -18,3 +18,15 @@ def convert(num, B):
 def is_palindrom(s):
     return all(s[i] == s[-i-1] for i in range(len(s)//2))
 ```
+
+### Unit Tests of the above functions
+```python
+def test_convert():
+    assert convert(8, 2) == '1000'
+    assert convert(15, 16) == 'F'
+
+def test_palindrom():
+    assert is_palindrom('1000') == False
+    assert is_palindrom('1001') == True
+    assert is_palindrom('10101') == True
+```
