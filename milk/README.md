@@ -1,4 +1,4 @@
-The key to this problem is to sort each milk by price, and then add amount of each milk with lowest price 
+The key to this problem is to sort each milk by price, and then *greedily* add amount of each milk with lowest price 
 until the total amount of added milk is the same as N.
 
 Here is a solution:
